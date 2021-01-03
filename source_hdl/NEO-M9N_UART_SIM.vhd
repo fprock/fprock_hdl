@@ -86,8 +86,6 @@ signal trigger_sig : std_logic;
 constant clock_period : time := 1 ns;
 signal sysclk : std_logic := '0';
 
-signal count_sig : integer;
-
 begin
 
 
@@ -133,7 +131,6 @@ file_feed : process(sysclk)
                 if count = 0 then
                     readline(file_object, mesg);
                     count := (mesg.all'length + 1) / 9;
-                    count_sig <= count;
     
                 end if;
                 
