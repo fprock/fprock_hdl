@@ -108,7 +108,7 @@ trig_gen : clock_trigger
 
 
 file_feed : process(sysclk)
-    file file_object : text open read_mode is "/home/chrispy/PycharmProjects/GPS_stimulus_gen/output.txt";
+    file file_object : text open read_mode is "/home/chrispy/workspace/fprock_hdl/util/NEO_M9N_UART_STIMULUS.txt";
     variable mesg : line;
     variable count : integer := 0;
     variable hold : boolean := false;
