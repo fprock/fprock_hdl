@@ -34,7 +34,10 @@ use IEEE.NUMERIC_STD.ALL;
 use std.textio.all;
 
 entity NEO_M9N_UART_SIM is
---  Port ( );
+    Port (
+        rx  :   in  std_logic;
+        tx  :   out std_logic
+        );
 end NEO_M9N_UART_SIM;
 
 architecture Simulator of NEO_M9N_UART_SIM is
@@ -174,12 +177,15 @@ file_feed : process(sysclk)
     reset_n	=> reset_sig,
     tx_ena	=> tx_ena_sig,
     tx_data	=> tx_data_sig,
-        rx		=> rx_sig,
+    rx		=> rx_sig,
         rx_busy	=> rx_busy_sig,
         rx_error=> rx_error_sig,
 		rx_data	=> rx_data_sig,
 		tx_busy	=> tx_busy_sig,
 		tx		=> tx_sig
 		);
-            
+    
+    rx_sig <= rx;
+    tx <= tx_sig;
+    
 end Simulator;
