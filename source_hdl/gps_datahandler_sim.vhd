@@ -26,7 +26,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -34,7 +34,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity gps_datahandler_sim is
---  Port ( );
+
 end gps_datahandler_sim;
 
 architecture Behavioral of gps_datahandler_sim is
@@ -53,6 +53,9 @@ signal dhrxerr : std_logic;
 signal dhrxdata : std_logic_vector(7 downto 0);
 signal dhtxbusy : std_logic;
 
+signal gpstxdata : std_logic_vector(7 downto 0);
+signal gpstxdata_last : std_logic_vector(7 downto 0);
+
 
 begin
 
@@ -69,7 +72,8 @@ end process BOARD_CLOCK;
 GPS_SIMULATOR : ENTITY libfprock.NEO_M9N_UART_SIM(Simulator)
     port map( 
         rx => gpsrx,
-        tx => gpstx
+        tx => gpstx,
+        tx_data => gpstxdata
         );
         
 DUT : ENTITY libfprock.gps_datahandler(Behavioral)
@@ -87,4 +91,23 @@ DUT : ENTITY libfprock.gps_datahandler(Behavioral)
 		tx_busy_uart      => dhtxbusy
 		);
 
+
+CHECKER : process(dhrxbusy)
+    variable txdata_hold : std_logic_vector(7 downto 0) := x"00";
+    begin
+    if rising_edge(dhrxbusy) then
+        txdata_hold := gpstxdata;
+         assert to_integer(unsigned(dhrxdata xor gpstxdata_last)) = 0
+    report "***** REVIEVED DATA DOES NOT MATCH TRANSMITTED DATA! *****"
+    severity warning;
+    end if;
+    if falling_edge(dhrxbusy)then
+        gpstxdata_last <= txdata_hold;
+       
+    end if;
+
+end process CHECKER;
+
+
+    
 end Behavioral;

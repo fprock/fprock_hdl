@@ -11,14 +11,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="3360000001fs"></ZoomEndTime>
-      <Cursor1Time time="3925000000fs"></Cursor1Time>
+      <ZoomEndTime time="2000100001fs"></ZoomEndTime>
+      <Cursor1Time time="2000100000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="149"></NameColumnWidth>
-      <ValueColumnWidth column_width="106"></ValueColumnWidth>
+      <NameColumnWidth column_width="177"></NameColumnWidth>
+      <ValueColumnWidth column_width="94"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="12" />
+   <WVObjectSize size="15" />
    <wvobject type="logic" fp_name="/gps_datahandler_sim/sysclk">
       <obj_property name="ElementShortName">sysclk</obj_property>
       <obj_property name="ObjectShortName">sysclk</obj_property>
@@ -66,5 +66,149 @@
    <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/tx_busy_sig">
       <obj_property name="ElementShortName">tx_busy_sig</obj_property>
       <obj_property name="ObjectShortName">tx_busy_sig</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group76">
+      <obj_property name="label">GPS_SIMULATOR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/rx">
+         <obj_property name="ElementShortName">rx</obj_property>
+         <obj_property name="ObjectShortName">rx</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/tx">
+         <obj_property name="ElementShortName">tx</obj_property>
+         <obj_property name="ObjectShortName">tx</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/reset_sig">
+         <obj_property name="ElementShortName">reset_sig</obj_property>
+         <obj_property name="ObjectShortName">reset_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/tx_ena_sig">
+         <obj_property name="ElementShortName">tx_ena_sig</obj_property>
+         <obj_property name="ObjectShortName">tx_ena_sig</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/tx_data_sig">
+         <obj_property name="ElementShortName">tx_data_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_data_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/rx_sig">
+         <obj_property name="ElementShortName">rx_sig</obj_property>
+         <obj_property name="ObjectShortName">rx_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/rx_busy_sig">
+         <obj_property name="ElementShortName">rx_busy_sig</obj_property>
+         <obj_property name="ObjectShortName">rx_busy_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/rx_error_sig">
+         <obj_property name="ElementShortName">rx_error_sig</obj_property>
+         <obj_property name="ObjectShortName">rx_error_sig</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/rx_data_sig">
+         <obj_property name="ElementShortName">rx_data_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_data_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/tx_busy_sig">
+         <obj_property name="ElementShortName">tx_busy_sig</obj_property>
+         <obj_property name="ObjectShortName">tx_busy_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/tx_sig">
+         <obj_property name="ElementShortName">tx_sig</obj_property>
+         <obj_property name="ObjectShortName">tx_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/trigger_sig">
+         <obj_property name="ElementShortName">trigger_sig</obj_property>
+         <obj_property name="ObjectShortName">trigger_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/sysclk">
+         <obj_property name="ElementShortName">sysclk</obj_property>
+         <obj_property name="ObjectShortName">sysclk</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/data_width">
+         <obj_property name="ElementShortName">data_width</obj_property>
+         <obj_property name="ObjectShortName">data_width</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/gps_datahandler_sim/GPS_SIMULATOR/clock_period">
+         <obj_property name="ElementShortName">clock_period</obj_property>
+         <obj_property name="ObjectShortName">clock_period</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group95">
+      <obj_property name="label">DATAHANDLER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/rx">
+         <obj_property name="ElementShortName">rx</obj_property>
+         <obj_property name="ObjectShortName">rx</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/tx">
+         <obj_property name="ElementShortName">tx</obj_property>
+         <obj_property name="ObjectShortName">tx</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/sysclk">
+         <obj_property name="ElementShortName">sysclk</obj_property>
+         <obj_property name="ObjectShortName">sysclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/reset_uart">
+         <obj_property name="ElementShortName">reset_uart</obj_property>
+         <obj_property name="ObjectShortName">reset_uart</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/tx_ena_uart">
+         <obj_property name="ElementShortName">tx_ena_uart</obj_property>
+         <obj_property name="ObjectShortName">tx_ena_uart</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/gps_datahandler_sim/DUT/tx_data_uart">
+         <obj_property name="ElementShortName">tx_data_uart[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_data_uart[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/rx_busy_uart">
+         <obj_property name="ElementShortName">rx_busy_uart</obj_property>
+         <obj_property name="ObjectShortName">rx_busy_uart</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/rx_error_uart">
+         <obj_property name="ElementShortName">rx_error_uart</obj_property>
+         <obj_property name="ObjectShortName">rx_error_uart</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/gps_datahandler_sim/DUT/rx_data_uart">
+         <obj_property name="ElementShortName">rx_data_uart[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_data_uart[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/tx_busy_uart">
+         <obj_property name="ElementShortName">tx_busy_uart</obj_property>
+         <obj_property name="ObjectShortName">tx_busy_uart</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/reset_sig">
+         <obj_property name="ElementShortName">reset_sig</obj_property>
+         <obj_property name="ObjectShortName">reset_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/tx_ena_sig">
+         <obj_property name="ElementShortName">tx_ena_sig</obj_property>
+         <obj_property name="ObjectShortName">tx_ena_sig</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/gps_datahandler_sim/DUT/tx_data_sig">
+         <obj_property name="ElementShortName">tx_data_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_data_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/rx_busy_sig">
+         <obj_property name="ElementShortName">rx_busy_sig</obj_property>
+         <obj_property name="ObjectShortName">rx_busy_sig</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/rx_error_sig">
+         <obj_property name="ElementShortName">rx_error_sig</obj_property>
+         <obj_property name="ObjectShortName">rx_error_sig</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/gps_datahandler_sim/DUT/rx_data_sig">
+         <obj_property name="ElementShortName">rx_data_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_data_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/gps_datahandler_sim/DUT/tx_busy_sig">
+         <obj_property name="ElementShortName">tx_busy_sig</obj_property>
+         <obj_property name="ObjectShortName">tx_busy_sig</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/gps_datahandler_sim/DUT/data_width">
+         <obj_property name="ElementShortName">data_width</obj_property>
+         <obj_property name="ObjectShortName">data_width</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/gps_datahandler_sim/gpstxdata_last">
+      <obj_property name="ElementShortName">gpstxdata_last[7:0]</obj_property>
+      <obj_property name="ObjectShortName">gpstxdata_last[7:0]</obj_property>
    </wvobject>
 </wave_config>
