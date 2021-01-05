@@ -17,7 +17,7 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-
+library libfprock;
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -80,9 +80,51 @@ signal      rx_error_sig    : std_logic;
 signal      rx_data_sig     : std_logic_vector(data_width-1 downto 0);
 signal      tx_busy_sig     : std_logic;
 
+component ram_bank is 
+    generic(
+        BLOCK_WIDTH         :   INTEGER; -- how wide is each data block (number of bits)
+        BANK_WIDTH          :   INTEGER; -- number of columns
+        BANK_HIGHT          :   INTEGER;   -- number of rows
+        ROW_ADDR_WIDTH      :   INTEGER; -- how wide is the address line in bits
+        COL_ADDR_WIDTH      :   INTEGER
+        );
+    port(
+        clk : in std_logic;
+        rowaddr : in std_logic_vector(ROW_ADDR_WIDTH -1 downto 0);
+        coladdr : in std_logic_vector(COL_ADDR_WIDTH -1 downto 0);
+        wena : in std_logic;
+        rena : in std_logic;
+        wdata : in std_logic_vector(BLOCK_WIDTH -1 downto 0);
+        rdata : out std_logic_vector(BLOCK_WIDTH -1 downto 0);
+        reset : in std_logic              
+        );
+end component;
+
+constant ROW_ADDR_WIDTH : integer
+
+signal memclk : std_logic;
+signal memrowaddr : std_logic_vector(ROW_ADDR_WIDTH -2 DOWNTO 0);
 
 begin
 
+uart_data_buffer : ram_bank
+    generic map(
+        BLOCK_WIDTH         => 8, -- how wide is each data block (number of bits)
+        BANK_WIDTH          => 128, -- number of columns
+        BANK_HIGHT          => 16,   -- number of rows
+        ROW_ADDR_WIDTH      => 7, -- how wide is the address line in bits
+        COL_ADDR_WIDTH      => 4
+    )
+    port map(
+        clk => memclk,
+        rowaddr => memrowaddr,
+        coladdr => memcoladdr,
+        wena => memwena,
+        rena => memrena,
+        wdata => memwdata,
+        rdata => memrdata,
+        reset => memreset 
+    );
 
 module_uart : uart 
     generic map(
