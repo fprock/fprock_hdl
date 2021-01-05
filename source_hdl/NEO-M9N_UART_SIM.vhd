@@ -36,7 +36,8 @@ use std.textio.all;
 entity NEO_M9N_UART_SIM is
     Port (
         rx  :   in  std_logic;
-        tx  :   out std_logic
+        tx  :   out std_logic;
+        tx_data : out std_logic_vector(7 downto 0)
         );
 end NEO_M9N_UART_SIM;
 
@@ -187,5 +188,6 @@ file_feed : process(sysclk)
     
     rx_sig <= rx;
     tx <= tx_sig;
+    tx_data <= tx_data_sig;
     
 end Simulator;
