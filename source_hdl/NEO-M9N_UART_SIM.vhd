@@ -86,13 +86,13 @@ end component;
 
 signal trigger_sig : std_logic;
 
-constant clock_period : time := 1 ns;
+constant clock_period : time := 1 us;
 signal sysclk : std_logic := '0';
 
 begin
 
 
-reset_sig <= '1' after 10 ns;
+reset_sig <= '1' after clock_period;
 
 clock : process(sysclk)
     begin

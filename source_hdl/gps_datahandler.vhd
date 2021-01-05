@@ -83,6 +83,7 @@ signal      tx_busy_sig     : std_logic;
 
 begin
 
+
 module_uart : uart 
     generic map(
         clk_freq    => 100_000_000,
