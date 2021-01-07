@@ -61,7 +61,7 @@ begin
 
 process(clk)
 begin
-    if reset = '1' then
+    if reset = '0' then
         mem <= (others => (others => (others => '0'))); 
     elsif rising_edge(clk) then
         if wena = '1' then

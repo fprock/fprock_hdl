@@ -22,9 +22,11 @@ library libfprock;
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+use ieee.std_logic_unsigned.all;
+
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -36,7 +38,7 @@ entity gps_datahandler is
            tx           : out STD_LOGIC;
            sysclk       : in STD_LOGIC;
            
-           reset_uart        :  in std_logic;
+           reset        :  in std_logic;
            tx_ena_uart       :	IN	STD_LOGIC;										
 		   tx_data_uart      :	IN	STD_LOGIC_VECTOR(7 DOWNTO 0);  
 		   rx_busy_uart      :	OUT	STD_LOGIC;
@@ -50,6 +52,8 @@ end gps_datahandler;
 
 architecture Behavioral of gps_datahandler is
 
+--***************************************************************************************************************
+--**********    UART COMPONENT DEFINITION   *****************************************************************
 component uart is 
     GENERIC(
 		  clk_freq    :	INTEGER;	--frequency of system clock in Hertz
@@ -72,7 +76,7 @@ component uart is
 end component;
 
 constant    data_width      : integer := 8;
-signal      reset_sig       : std_logic;
+
 signal      tx_ena_sig      : std_logic;
 signal      tx_data_sig     : std_logic_vector(data_width-1 downto 0);
 signal      rx_busy_sig     : std_logic;
@@ -80,6 +84,8 @@ signal      rx_error_sig    : std_logic;
 signal      rx_data_sig     : std_logic_vector(data_width-1 downto 0);
 signal      tx_busy_sig     : std_logic;
 
+--***************************************************************************************************************
+--**********    RAM COMPONENT DEFINITION    *****************************************************************
 component ram_bank is 
     generic(
         BLOCK_WIDTH         :   INTEGER; -- how wide is each data block (number of bits)
@@ -100,20 +106,35 @@ component ram_bank is
         );
 end component;
 
-constant ROW_ADDR_WIDTH : integer
+constant MEM_BLOCK_WIDTH : integer := 8;
+constant MEM_BANK_WIDTH : integer := 128;
+constant MEM_BANK_HIGHT : integer := 16;
+constant MEM_ROW_ADDR_WIDTH : integer := 4;
+constant MEM_COL_ADDR_WIDTH : integer := 7;
+
 
 signal memclk : std_logic;
-signal memrowaddr : std_logic_vector(ROW_ADDR_WIDTH -2 DOWNTO 0);
+signal memrowaddr : std_logic_vector(MEM_ROW_ADDR_WIDTH -1 DOWNTO 0) := (others => '0');
+signal memcoladdr : std_logic_vector(MEM_COL_ADDR_WIDTH -1 DOWNTO 0) := (others => '0');
+signal memwena : std_logic := '1';
+signal memrena : std_logic := '0';
+signal memwdata : std_logic_vector(MEM_BLOCK_WIDTH -1 downto 0);
+signal memrdata : std_logic_vector(MEM_BLOCK_WIDTH -1 downto 0);
+signal memreset : std_logic;
 
-begin
+-----------------------------------------------------------------------------------------------------------------
+begin -----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
 
+--***************************************************************************************************************
+--**********    RAM COMPONENT INSTANTIATION   *****************************************************************
 uart_data_buffer : ram_bank
     generic map(
-        BLOCK_WIDTH         => 8, -- how wide is each data block (number of bits)
-        BANK_WIDTH          => 128, -- number of columns
-        BANK_HIGHT          => 16,   -- number of rows
-        ROW_ADDR_WIDTH      => 7, -- how wide is the address line in bits
-        COL_ADDR_WIDTH      => 4
+        BLOCK_WIDTH         => MEM_BLOCK_WIDTH, -- how wide is each data block (number of bits)
+        BANK_WIDTH          => MEM_BANK_WIDTH, -- number of columns
+        BANK_HIGHT          => MEM_BANK_HIGHT,   -- number of rows
+        ROW_ADDR_WIDTH      => MEM_ROW_ADDR_WIDTH, -- how wide is the address line in bits
+        COL_ADDR_WIDTH      => MEM_COL_ADDR_WIDTH
     )
     port map(
         clk => memclk,
@@ -125,7 +146,9 @@ uart_data_buffer : ram_bank
         rdata => memrdata,
         reset => memreset 
     );
-
+    
+--***************************************************************************************************************
+--**********    RAM COMPONENT INSTANTIATION   *****************************************************************
 module_uart : uart 
     generic map(
         clk_freq    => 100_000_000,
@@ -137,7 +160,7 @@ module_uart : uart
         )
     port map(
         clk         => sysclk,
-        reset_n	    => reset_uart,
+        reset_n	    => reset,
         tx_ena      => tx_ena_sig,
         tx_data     => tx_data_sig,
         rx          => rx,
@@ -147,8 +170,10 @@ module_uart : uart
 		tx_busy     => tx_busy_sig,
 		tx		    => tx
 		);
-		
-	reset_sig <= reset_uart;
+
+--***************************************************************************************************************
+--**********    SIGNAL MAPPING   *****************************************************************		
+
     tx_ena_sig <= tx_ena_uart;										
 	tx_data_sig <= tx_data_uart;  	
     
@@ -156,5 +181,20 @@ module_uart : uart
     rx_error_uart <= rx_error_sig;
     rx_data_uart <= rx_data_sig;
 	tx_busy_uart <= tx_busy_sig;
+	
+	memclk <= sysclk;
+	memreset <= reset;
+	
+
+memory_controller : process(memclk)
+begin
+    if rising_edge(memclk) then
+        if ((to_integer(unsigned(memcoladdr))) = MEM_BANK_WIDTH) then
+            memcoladdr <= "0000000";
+        else
+            memcoladdr <= memcoladdr + "0000001";
+        end if;
+    end if;
+end process memory_controller;
 	
 end Behavioral;
