@@ -133,6 +133,9 @@ file_feed : process(sysclk)
             
             if tx_busy_sig = '0' and not hold and not changed then
                 if count = 0 then
+                    assert endfile(file_object)
+                        report "END OF STIMULUS FILE"
+                        severity failure;
                     readline(file_object, mesg);
                     count := (mesg.all'length + 1) / 9;
     
