@@ -1,5 +1,6 @@
 # fprock_hdl
 
+WARNING: README INSTRUCTIONS OUT OF DATE/NOT FUNCTIONING
 
 When Creating New HDL Sources:
 	
